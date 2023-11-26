@@ -18,12 +18,11 @@ int datacmp(data d1, data d2) {
     return -1;
 }
 
-class List {
-    private:
+struct List {
         node *head = NULL;
         node *tail = NULL;
         int size = 0;
-    public:
+        
     data peakFirst(void) {
         if (head == NULL) {
             std::cout << "empty list\n";

@@ -1,6 +1,5 @@
 // بسم الله
 #include "newlist.h"
-// #include <cctype>
 #include <stdlib.h>
 
 using namespace std;
@@ -31,7 +30,7 @@ bool test_addFirst_len() {
         // تدشين القئمة
         sosa.addFirst(i);
     }
-    // sosa.display();
+    sosa.display();
     if (sosa.len() == N-1) {
         //  اختبار len
         return true;
