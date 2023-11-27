@@ -3,6 +3,7 @@
 
 int main() {
     Stack stack;
+    stack.reverse("FreePalastine");
     if (check_prant("(){}")) {
         cout << "work well\n";
     } else {
