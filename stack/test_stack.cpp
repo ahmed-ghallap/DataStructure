@@ -3,8 +3,11 @@
 
 int main() {
     Stack stack;
-    stack.top();
-    stack.pop();
+    if (check_prant("(){}")) {
+        cout << "work well\n";
+    } else {
+        cout << "Not work well\n";
+    }
 
     for (int i = 0; i < 10; i++) {
         stack.push(i);
