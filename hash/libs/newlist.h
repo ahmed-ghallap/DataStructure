@@ -177,19 +177,8 @@ struct List {
             std::cout <<"]\n";
         }
 
-    // char *str(void) {
-    //     data *s = new data[size+1];
-    //     node *tmp = head;
-    //     int i;
-    //     for (i = 0; i < size && tmp != NULL; i++) {
-    //         s[i] = tmp->val;
-    //         tmp = tmp->next;
-    //     }
-    //     s[i] = '\0';
-    //     return s;
-    // }
-    int len(void) {
-        return size;
-    }
+        int len(void) {
+            return size;
+        }
 
 };
