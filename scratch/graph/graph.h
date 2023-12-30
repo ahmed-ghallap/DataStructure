@@ -1,6 +1,8 @@
 // بسم الله
 #include <iostream>
+#include <fstream>
 #include <stack>
+#include <queue>
 #include <list>
 #include <algorithm>
 
@@ -20,50 +22,72 @@ struct Graph {
 
     vertex *vertecies;
 
+    void breadth (string s) {
+        queue<vertex *> pipline;
+        list<vertex *> visited;
+        vertex *start = get_vertex(s);
+        pipline.push(start);
+        visited.push_back(start);
+        while (!pipline.empty()) {
+            vertex *r = pipline.front();pipline.pop();
+            cout << r->data << ") ";
+            for 
+            (
+                vertex::edge * e = r->edges;
+                e;
+                e = e->next
+            )
+            {
+                if (!search(e->to, visited)) {
+                    pipline.push(e->to);
+                    visited.push_back(e->to);
+                    cout << e->to->data << ' ';
+                }   
+            }
+            cout << endl; 
+        }
+
+    }
+
     void depth (string s) {
         stack<vertex *> pipline;
         list<vertex *> visited;
 
         vertex *start = get_vertex(s);
         pipline.push(start);
+        visited.push_back(start);
 
         while (!pipline.empty()) {
-            vertex *tmp = pipline.top();
-            pipline.pop();
-            visited.push_back(tmp);
+            vertex *tmp = pipline.top(); pipline.pop();
             for (
                     vertex::edge * e = print_node(tmp);
                     e;
                     e = e->next
                 )
                 {
-                    // if to not in visited list.
-
-                    bool there = false;
-                    for (auto i : visited) {
-                        if (i == e->to) {
-                            there = true;
-                        }
-                    }
-                    if (!there)  {
+                    if (!search(e->to, visited)) {
                         pipline.push(e->to);
-                        // cout << e->to->data << " is unvisited \n";
-                        visited.push_back(tmp);
+                        visited.push_back(e->to);
                     }
                 }
         }
-
-        // for (auto i : visited) {
-        //     cout << i->data << endl;
-        // }
-        
+        cout << endl;
     }
-
+    
     vertex::edge *print_node(vertex *v) {
-        cout << v->data << endl;
+        if (v->edges) {
+            cout << v->data << " => ";
+        }
         return v->edges;
     }
 
+    bool search(vertex *v, list<vertex *>l) {
+        for (auto i : l) {
+            if (i == v)
+                return true;
+        }
+        return false;
+    }
     void addVertix(string data) {
         vertex* ptr = new vertex;
         ptr->data = data;
@@ -78,7 +102,12 @@ struct Graph {
                 return tmp;
             }
         }
-        return nullptr;
+        vertex* ptr = new vertex;
+        ptr->data = data;
+
+        ptr->next = vertecies;
+        vertecies = ptr;
+        return ptr;
     }
     void two_way(string f,string to, double cost) {
         one_way (f, to, cost);
@@ -110,12 +139,56 @@ struct Graph {
         }
     }
 
-    void load_from_file(string file) {
-        // emptye for now
+
+
+    void load_from_file(string filename) {
+        ifstream file;
+        file.open(filename);
+        string s;
+        getline(file, s);
+
+        string from, to;
+        double cost;
+        while (!file.eof()) {
+            file >> from >> to >> cost;
+            two_way(from, to, cost);
+        }
+
     }
 
-  
 
+    void min_sapn_tree (string s) {
+        stack<vertex *> pipline;
+        list<vertex *> visited;
+
+        vertex *start = get_vertex(s);
+        pipline.push(start);
+        visited.push_back(start);
+
+        while (!pipline.empty()) {
+            // cout << "size: " << pipline.size() << endl;
+            vertex *tmp = pipline.top(); pipline.pop();
+            vertex::edge * e = print_node(tmp);
+            list<vertex::edge *> unvisiteds;
+            for ( ;e ;e=e->next)
+            {
+                if (!search(e->to, visited)) {
+                    unvisiteds.push_back(e);
+                }
+            }
+            vertex::edge *smallest = unvisiteds.front();
+            for (auto unvisited: unvisiteds) {
+                if (unvisited->cost < smallest->cost) 
+                    smallest = unvisited;
+            }
+            if (smallest) {
+                pipline.push(smallest->to);
+                visited.push_back(smallest->to);
+                unvisiteds.clear();
+            }
+        }
+        cout << endl;
+    }
 };
 
 

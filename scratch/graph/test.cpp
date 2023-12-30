@@ -1,20 +1,40 @@
-// #include "graph.h"
 #include "tree.h"
 
 
-int main () {
+int main (int argc, char *argv[]) {
     Graph graph;
-    string cities[] = {"Alexandria", "Cairo", "Aswan", "El-bhera"};
 
-    for (int i = 0; i < 4; i++) 
-        graph.addVertix(cities[i]);
-
-    graph.two_way(cities[0], cities[1], 300);
-    graph.two_way(cities[0], cities[2], 500);
-    graph.two_way(cities[0], cities[3], 150);
-    graph.two_way(cities[1], cities[2], 100);
-    graph.two_way(cities[1], cities[3], 100);
-
-    // graph.depth(cities[0]);
-    graph.display();
+    graph.load_from_file(argv[2]);
+    
+    system("clear");
+    char op;
+    while (cin >> op) {
+        system("clear");
+        switch (op) {
+            case 'd' :
+                graph.display();
+                continue;
+            case 'm' : {
+                string s;
+                cout << "start point: ";
+                cin >> s;
+                graph.min_sapn_tree(s);
+                continue;
+            }
+            case 's' : {
+                string s;
+                cout << "start point: ";
+                cin >> s;
+                graph.depth(s);
+                continue;
+            }
+            case 'q' : {
+                string s;
+                cout << "start point: ";
+                cin >> s;
+                graph.breadth(s);
+                continue;
+            }
+        }
+    }
 }
