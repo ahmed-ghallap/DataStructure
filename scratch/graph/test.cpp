@@ -12,8 +12,9 @@ int main () {
     graph.two_way(cities[0], cities[1], 300);
     graph.two_way(cities[0], cities[2], 500);
     graph.two_way(cities[0], cities[3], 150);
-    // graph.two_way(cities[1], cities[2], 100);
-    // graph.two_way(cities[1], cities[3], 100);
+    graph.two_way(cities[1], cities[2], 100);
+    graph.two_way(cities[1], cities[3], 100);
 
     // graph.depth(cities[0]);
+    graph.display();
 }
